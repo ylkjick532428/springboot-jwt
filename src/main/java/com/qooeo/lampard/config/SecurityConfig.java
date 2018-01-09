@@ -10,6 +10,7 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -60,11 +61,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .httpBasic()
 		        .realmName(securityRealm)
 		        .and()
+		        .authorizeRequests()
+                .antMatchers("/",
+                        "/login",
+                        "/login**",
+                        "/register.html",
+                        "/action/register",
+                        "/action/verify/*",
+                        "/js/**",
+                        "/socket/**")
+                .permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN_USER")
+                .anyRequest()
+                .authenticated()
+                .and()
 		        .csrf()
 		        .disable();
-
 	}
-
+	
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();

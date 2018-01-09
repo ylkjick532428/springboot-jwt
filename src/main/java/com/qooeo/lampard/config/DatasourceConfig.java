@@ -47,7 +47,7 @@ public class DatasourceConfig {
     @Autowired
     private Environment env;
     
-    @Bean
+    @Bean()
     public DataSource datasource() {
 		MysqlDataSource dataSource = null;
 		dataSource = new MysqlDataSource();

@@ -1,0 +1,65 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot"; }
+        maven { url "https://repo.spring.io/milestone"; }
+        maven { url "https://plugins.gradle.org/m2/"; }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+
+group = 'com.qooeo.lampard'
+version = '0.0.1-SNAPSHOT'
+
+description = """springboot-jwt"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version:'1.5.3.RELEASE'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.41'
+    compile group: 'org.springframework.security', name: 'spring-security-jwt', version:'1.0.7.RELEASE'
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version:'2.0.13.RELEASE'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.8.8'
+    compile group: 'org.nextrtc.signalingserver', name: 'nextrtc-signaling-server', version:'1.0.0-RC3'
+    compile group: 'org.springframework', name: 'spring-websocket', version:'4.3.8.RELEASE'
+    compile group: 'org.webjars', name: 'webjars-locator', version:'0.32-1'
+    compile group: 'org.webjars', name: 'sockjs-client', version:'1.0.2'
+    compile group: 'org.webjars', name: 'stomp-websocket', version:'2.3.3'
+    compile group: 'org.webjars', name: 'bootstrap', version:'3.3.7'
+    compile group: 'org.webjars', name: 'jquery', version:'3.1.0'
+         
+    runtime group: 'org.springframework.boot', name: 'spring-boot-devtools', version:'1.5.3.RELEASE'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.3.RELEASE') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'javax.websocket', name: 'javax.websocket-api', version:'1.1'
+    
+
+   
+    
+}

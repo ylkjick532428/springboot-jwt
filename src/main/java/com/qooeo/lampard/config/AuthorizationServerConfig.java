@@ -2,6 +2,8 @@ package com.qooeo.lampard.config;
 
 import java.util.Arrays;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+	private static Logger logger = LoggerFactory.getLogger(ResourceServerConfig.class);
+	
 	@Value("${security.jwt.client-id}")
 	private String clientId;
 
@@ -64,6 +68,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
 		enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+		System.out.println(tokenStore);
 		endpoints.tokenStore(tokenStore)
 		        .accessTokenConverter(accessTokenConverter)
 		        .tokenEnhancer(enhancerChain)
